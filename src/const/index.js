@@ -13,4 +13,5 @@ export const ACTION_TYPES = {
   LIKE: 'like',
   PASS: 'pass',
   SUPERLIKE: 'superlike',
+  UNDO: 'undo',
 };

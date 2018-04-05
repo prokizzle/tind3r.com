@@ -21,7 +21,7 @@ import type { ActionsType } from 'types/person';
 
 import './PersonCard.scss';
 
-const keyCodes = { d: 68, s: 83, a: 65 };
+const keyCodes = { d: 68, s: 83, a: 65, u: 117 };
 
 const callAction = (props, actionType: ActionsType) => {
   props.onButtonClick({
@@ -55,6 +55,9 @@ const enhance = compose(
     },
     [keyCodes.a]: (props) => {
       callAction(props, ACTION_TYPES.PASS);
+    },
+    [keyCodes.u]: (props) => {
+      callAction(props, ACTION_TYPES.UNDO);
     },
   }),
   withHandlers({

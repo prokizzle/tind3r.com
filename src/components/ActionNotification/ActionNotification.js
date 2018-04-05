@@ -3,12 +3,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withHandlers } from 'recompose';
+import withHotKeys from 'hoc/withHotkeys';
 
 import recsStore from 'stores/RecsStore';
 
 import type { ActionsType } from 'types/person';
 
 import './ActionNotification.scss';
+
+const keyCodes = { u: 117 }
 
 type PropsType = {
   payload: {
@@ -25,11 +28,19 @@ const ACTIONS_MAP: { [ActionsType]: string } = {
   superlike: 'superliked ',
 };
 
-const enhance = withHandlers({
-  handleRevert: ({ payload }: PropsType) => () => {
-    recsStore.revert(payload._id);
-  },
-});
+const enhance = compose(
+  withHandlers({
+    handleRevert: ({ payload }: PropsType) => () => {
+      recsStore.revert(payload._id);
+    },
+  }),
+  withHotkeys({
+    [keyCodes.u]: ({ payload}: PropsType) =>  {
+      recsStore.revert(payload._id);
+    }
+  })
+);
+
 
 const ActionNotification = ({ payload: { name, type, _id }, handleRevert }: PropsType) => (
   <div className="action-notification">
